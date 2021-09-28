@@ -5,8 +5,8 @@ class TrainingCentre:
     __counter = 0
 
     def __init__(self, name, opening_date = datetime.date.today()):
-        TrainingCentre.__counter += 1
-        self.__id = TrainingCentre.__counter
+        type(self).__counter += 1
+        self.__id = type(self).__counter
         self.__name = name
         self.__date_opened = opening_date
         self.__capacity = 100
