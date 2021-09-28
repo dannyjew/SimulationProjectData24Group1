@@ -1,17 +1,24 @@
-
-
 class Trainees():
 
-    def __init__(self, name, training_centre, course_length = 12):
-        self.__id = 0
-        self.__name = ""
-        self.__training_centre = ""
-        self.name = name
-        self.training_centre = training_centre
-        self.course_length = course_length
+    def __init__(self, id, centre, name="A", course_length=3):
+        self.__id = id
+        self.__name = name
+        self.__training_centre = centre
+        self.__course_length = course_length
 
-    def generate_trainees(self):
-        pass
+    @property
+    def ID(self):
+        return self.__id
+    
+    @property
+    def Name(self):
+        return self.__name
 
-print("Hello")
+    @property
+    def Centre(self):
+        return self.__training_centre
+
+    @property
+    def Course_length(self):
+        return self.__course_length
 
