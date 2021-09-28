@@ -9,7 +9,7 @@ class Trainees():
     @property
     def ID(self):
         return self.__id
-    
+
     @property
     def Name(self):
         return self.__name
@@ -21,4 +21,7 @@ class Trainees():
     @property
     def Course_length(self):
         return self.__course_length
+
+    def add_to_training_centre(self, centre):
+        return True
 
