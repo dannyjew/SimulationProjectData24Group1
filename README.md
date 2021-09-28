@@ -1,3 +1,6 @@
 # SimulationProjectData24Group1
 
-Edit being made just to see if it works for everyone
+"ADD ..." - if you create a new file
+"UPDATE ..." - if you update an existing file
+"DELETE ..." - if you delete an existing file
+
