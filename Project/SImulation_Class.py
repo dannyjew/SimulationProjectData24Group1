@@ -1,4 +1,6 @@
 import random
+import TrainingCentre as TC
+
 
 class Simulation:
     def __init__(self, state: str, available_states: tuple, length: bool):
@@ -8,6 +10,7 @@ class Simulation:
         self.current_month = 0
         self.total_centres = 0
         self.full_centres = 0
+        self.centre_list = []
         self.trainees = []
         self.__waiting_list = []
         self.welcome_func()
@@ -34,7 +37,7 @@ class Simulation:
 
     def add_new_centre(self):
         self.total_centres += 1
-        centre_list.append(training_centre())
+        self.centre_list.append(TC.TrainingCentre("Random Name"))
 
     def add_from_waiting_list(self, waiting_list, centre_list, num):
         waiting_list.members = 0
