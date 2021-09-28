@@ -1,8 +1,8 @@
 # import Other Classes here
 import SImulation_Class as S
 import Trainees as T
-import Training_Centers as TC
-
+import TrainingCentre as TC
+from unittest import TestCase
 # Testing functions will all go in here:
 
 
@@ -17,16 +17,18 @@ import Training_Centers as TC
 # def Test_Training_Centres(Trainee: Trainee()):
 #     assert Trainee.get_training_centre is Training_Centre
 
-Testing_Tom = T.Trainees(1, "TestingTowers", name="Testing Tom")
-
-def Test_Trainee_Name_Getter(Testing_Tom):
-    assert Testing_Tom.Name() == "Testing Tom"
+Testing_Tom = T.Trainees(1, "Training Towers", name="Testing Tom")
+Testing_Towers = TC.TrainingCentre("Training Towers")
 
 
+def test_trainee_name_getter():
+    assert Testing_Tom.Name == "Testing Tom"
 
-def Test_Course_Length_Getter(Testing_Tom):
-    assert Testing_Tom.Course_length() == 3
 
-def Test_Capacity(training_centre: Training_Centre()):
-    assert training_centre.max() == 100
+def test_course_length_getter():
+    assert Testing_Tom.Course_length == 3
+
+
+def test_capacity():
+    assert Testing_Towers.Capacity == 100
 
