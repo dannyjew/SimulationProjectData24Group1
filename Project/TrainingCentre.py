@@ -1,13 +1,15 @@
-class Trainees():
+import datetime
+
+class TrainingCentre:
     # A static private variable that increments each time the constructor is called
     __counter = 0
 
-    def __init__(self, centre, name="A", course_length=3):
+    def __init__(self, name, opening_date = datetime.date.today()):
         type(self).__counter += 1
         self.__id = type(self).__counter
         self.__name = name
-        self.__training_centre = centre
-        self.__course_length = course_length
+        self.__date_opened = opening_date
+        self.__capacity = 100
 
     @property
     def ID(self):
@@ -18,13 +20,9 @@ class Trainees():
         return self.__name
 
     @property
-    def Centre(self):
-        return self.__training_centre
+    def DateOpened(self):
+        return self.__date_opened
 
     @property
-    def Course_length(self):
-        return self.__course_length
-
-    def add_to_training_centre(self, centre):
-        return True
-
+    def Capacity(self):
+        return self.__capacity
