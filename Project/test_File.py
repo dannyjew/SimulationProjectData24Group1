@@ -18,3 +18,17 @@ def test_course_length_getter():
 
 def test_capacity():
     assert Testing_Towers.Capacity == 100
+
+
+def test_add_new_centre():
+    old_centers = Simulation_Instance.total_centres
+    Simulation_Instance.add_new_centre()
+    assert old_centers +1 == Simulation_Instance.total_centres
+
+
+def test_generate_trainees():
+    assert 20 <= Simulation_Instance.generate_trainees() <= 30
+
+
+def test_add_to_training_centre():
+    assert Testing_Tom.add_to_training_centre(Testing_Towers)
