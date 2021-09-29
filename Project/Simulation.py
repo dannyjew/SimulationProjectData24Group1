@@ -1,10 +1,10 @@
 import random
 from TrainingCentre import TrainingCentre
-
+from UI import *
 
 class Simulation:
     def __init__(self):
-        length, centre_count = self.__welcome_func()
+        length, centre_count = welcome_func()
         self.__simulation_length = length
 
         # A dictionary containing ALL trainees split by those in training and waiting
@@ -17,7 +17,19 @@ class Simulation:
         self.__training_centres = []
 
         # Initially create as many training centres as requested by user
-        map(self.__open_new_centre(), range(centre_count))
+        for i in range(centre_count):
+            self.__open_new_centre()
+
+
+        self.__open_count = self.__full_count = 0
+
+    @property
+    def OpenCount(self):
+        return self.__open_count
+
+    @property
+    def FullCount(self):
+        return self.__full_count
 
     @property
     def SimulationLength(self):
@@ -26,6 +38,10 @@ class Simulation:
     @property
     def Waiting_List(self):
         return self.__trainees["Waiting"]
+
+    @property
+    def Training_Centres(self):
+        return self.__training_centres
 
     def __open_new_centre(self):
         self.__training_centres.append(TrainingCentre())
@@ -37,41 +53,8 @@ class Simulation:
         return new_trainees  # The number of trainees to generate (not needed but nice)
 
     # TODO: Consider implementing a UI class
-    @staticmethod
-    def __welcome_func():
-        # These are all user input captures
-        user_input = ""
-        length = "3"
-        centre_count = "1"
 
-        # 1. Initial Screen with Simulation Settings
-        print(f"""Simulation Settings\n{'-' * 50}
-            Default Settings:
-                Simulation Length (month):              {length}
-                Initial Amount of Training Centres:     {centre_count}\n""")
-        print("1. Run simulation with defaults")
-        print("2. Change simulation settings\n")
 
-        while True:
-            user_input = input("Select an option: ")
-            if user_input.isnumeric() and int(user_input) in range(1, 3):
-                # Return the default settings
-                if user_input == "1":
-                    return int(length), int(centre_count)
-                break
-
-        # 2. User wants to manually change settings
-        while True:
-            length = input("Enter Simulation Length (in months): ")
-            if length.isnumeric() and int(length) > 0:
-                break
-
-        while True:
-            centre_count = input("Enter the number of Training Centres at Simulation start: ")
-            if centre_count.isnumeric() and int(centre_count) > 0:
-                break
-
-        return int(length), int(centre_count)
 
     def run_simulation(self):
         # MAIN LOOP - Go through the simulation month by month
@@ -107,15 +90,25 @@ class Simulation:
 
 
         # End of simulation report
-        full_count = sum([centre.IsFull for centre in self.__training_centres])
-        open_count = len(self.__training_centres) - full_count
+        self.__full_count = sum([centre.IsFull for centre in self.__training_centres])
+        self.__open_count = len(self.__training_centres) - self.__full_count
 
         print(f"""\n\n{'-'*50}\nEnd of Simulation Report
-        Number of open centres: {open_count}
-        Number of full centres: {full_count}
+        Number of open centres: {self.__open_count}
+        Number of full centres: {self.__full_count}
         Number of trainees in training: {self.__trainees['Training']}
         Number of trainees in waiting : {self.__trainees['Waiting']}
 End of End of Simulation Report\n{'-'*50}""")
+
+        # Testing Getters:
+        def get_open_new_centres(self):
+            self.__open_new_centre()
+
+        def get_recruit_trainees(self):
+            return self.__recruit_trainees()
+
+        def get_welcome_func(self):
+            return self.__welcome_func()
 
 
 
