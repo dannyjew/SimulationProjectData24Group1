@@ -49,9 +49,3 @@ class TrainingCentre:
 
         return count
 
-# Test
-tc1 = TrainingCentre("1")
-tc1.add_trainees(90)
-print(tc1.IsFull)
-tc1.add_trainees(1)
-print(tc1.IsFull)
