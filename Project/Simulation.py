@@ -4,9 +4,10 @@ import GUI
 
 
 
+
 class Simulation:
-    def __init__(self):
-        length, centre_count = GUI.welcome_func()
+    def __init__(self, default_welcome=True):
+        length, centre_count = GUI.welcome_func(default_welcome)
         self.__simulation_length = length
 
         # A dictionary containing ALL trainees split by those in training and waiting
