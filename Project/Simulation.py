@@ -120,5 +120,7 @@ class Simulation:
 
 
 # Test
-# sim = Simulation()
-# sim.run_simulation()
+sim = Simulation()
+sim.run_simulation()
+
+
