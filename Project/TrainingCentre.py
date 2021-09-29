@@ -46,12 +46,5 @@ class TrainingCentre:
             trainees_added = count - (self.__capacity - 100)
             self.__capacity = 100
             return trainees_added
-
         return count
 
-# Test
-tc1 = TrainingCentre("1")
-tc1.add_trainees(90)
-print(tc1.IsFull)
-tc1.add_trainees(1)
-print(tc1.IsFull)
