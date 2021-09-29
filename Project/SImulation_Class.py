@@ -1,5 +1,6 @@
 import random
 
+
 class Simulation:
     def __init__(self, state: str, available_states: tuple, length: bool):
         self.__state = state
@@ -61,4 +62,3 @@ class Simulation:
         num = random.randint(20, 30)
         print(f"rand number = {num}")
         return num
-    
