@@ -3,16 +3,14 @@
 import Simulation as S
 import Trainees as T
 import TrainingCentre as TC
+
 import GUI as G
 import unittest.mock as mock
 
 
-
 Testing_Tom = T.Trainees("Training Towers", name="Testing Tom")
 Testing_Towers = TC.TrainingCentre("Training Towers")
-Sim = S.Simulation()
-
-
+Sim = S.Simulation(False)
 
 def test_trainee_name_getter():
     assert Testing_Tom.Name == "Testing Tom"
@@ -51,7 +49,8 @@ def test_welcome_func_def(monkeypatch):
 
 
 def test_welcome_func_nondef(mocker):
+
     length = 15
     opening_centres = 3
-    with mock.patch('builtins.input', side_effect=["2","15","3"]):
-        assert G.welcome_func() == (length, opening_centres)
+    with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
+        assert G.welcome_func(True) == (length, opening_centres)
