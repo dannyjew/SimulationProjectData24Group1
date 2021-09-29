@@ -1,6 +1,5 @@
 import datetime
 
-
 class TrainingCentre:
     # A static private variable that increments each time the constructor is called
     __counter = 0
@@ -47,4 +46,3 @@ class TrainingCentre:
             self.__capacity = 100
             return trainees_added
         return count
-
