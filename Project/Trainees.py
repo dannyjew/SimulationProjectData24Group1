@@ -1,4 +1,4 @@
-class Trainees():
+class Trainees:
     # A static private variable that increments each time the constructor is called
     __counter = 0
 
