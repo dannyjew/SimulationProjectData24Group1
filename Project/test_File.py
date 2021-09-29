@@ -49,8 +49,15 @@ def test_welcome_func_def(monkeypatch):
 
 
 def test_welcome_func_nondef(mocker):
-
     length = 15
     opening_centres = 3
     with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
         assert G.welcome_func(True) == (length, opening_centres)
+
+def test_not_welcome_func_nondef(mocker):
+    length = "A String"
+    opening_centres = "According to all known laws of aviation, there's no way a bee should be able to fly"
+    with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
+        assert G.welcome_func(True) != (length, opening_centres)
+
+

@@ -1,9 +1,13 @@
+import matplotlib.pyplot as plt
+import sys
+
+
 def welcome_func(default_val=True):
     # These are all user input captures
     user_input = ""
     length = "3"
     centre_count = "1"
-    print(default_val)
+
     # 1. Initial Screen with Simulation Settings
     if default_val:
         print(f"""Simulation Settings\n{'-' * 50}
@@ -34,5 +38,20 @@ def welcome_func(default_val=True):
 
     return int(length), int(centre_count)
 
+
+def print_simulation_results(simulation_result):
+    print(f"""\n\n{'-' * 50}\nEnd of Simulation Report
+            Number of open centres: {simulation_result["Open"]}
+            Number of full centres: {simulation_result["Full"]}
+            Number of trainees in training: {simulation_result['Training']}
+            Number of trainees in waiting : {simulation_result['Waiting']}
+    End of End of Simulation Report\n{'-' * 50}""")
+
+
 def display_graph(x_axis, y_axis):
-    pass
+    plt.plot(x_axis, y_axis)
+    plt.xlabel('month')
+    plt.ylabel('training')
+    plt.title("Graph")
+    plt.plot(x_axis, y_axis)
+    plt.show()
