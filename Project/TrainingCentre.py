@@ -46,6 +46,5 @@ class TrainingCentre:
             trainees_added = count - (self.__capacity - 100)
             self.__capacity = 100
             return trainees_added
-
         return count
 
