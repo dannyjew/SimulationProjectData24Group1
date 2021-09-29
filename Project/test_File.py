@@ -1,5 +1,3 @@
-import sys
-
 import Simulation as S
 import Trainees as T
 import TrainingCentre as TC
@@ -9,7 +7,6 @@ import TrainingCentre as TC
 Testing_Tom = T.Trainees("Training Towers", name="Testing Tom")
 Testing_Towers = TC.TrainingCentre("Training Towers")
 Sim = S.Simulation()
-sys.stdin = 1
 
 
 
@@ -36,13 +33,22 @@ def test_open_centre():
     old_centre_count = len(Sim.Training_Centres)
     Sim.get_open_new_centres()
     assert old_centre_count + 1 == len(Sim.Training_Centres)
-    sys.stdin = 1
+
 
 def test_recruit_trainees():
     assert 20 <= Sim.get_recruit_trainees() <= 30
 
-def test_welcome_func_def():
+
+def test_welcome_func_def(monkeypatch):
     length = 3
     opening_centres = 1
+    monkeypatch.setattr('builtins.input', lambda _: "1")
     assert Sim.get_welcome_func() == (length, opening_centres)
-    sys.stdin = 1
+
+
+def test_welcome_func_nondef(mocker):
+    length = 15
+    opening_centres = 3
+    inputs = ["2", str(length), str(opening_centres)]
+    mocker.patch('builtins.input', map(str, inputs))
+    assert Sim.get_welcome_func() == (length, opening_centres)

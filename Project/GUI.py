@@ -1,4 +1,3 @@
-
 def welcome_func():
     # These are all user input captures
     user_input = ""
@@ -33,3 +32,6 @@ def welcome_func():
             break
 
     return int(length), int(centre_count)
+
+def display_graph(x_axis, y_axis):
+    pass

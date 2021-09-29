@@ -1,10 +1,12 @@
 import random
 from TrainingCentre import TrainingCentre
-from UI import *
+import GUI
+
+
 
 class Simulation:
     def __init__(self):
-        length, centre_count = welcome_func()
+        length, centre_count = GUI.welcome_func()
         self.__simulation_length = length
 
         # A dictionary containing ALL trainees split by those in training and waiting
@@ -18,10 +20,14 @@ class Simulation:
 
         # Initially create as many training centres as requested by user
         for i in range(centre_count):
-            self.__open_new_centre()
+            self.__training_centres.append(self.__open_new_centre())
 
-
-        self.__open_count = self.__full_count = 0
+        self.__simulation_output = {
+            "Open Centres": 0,
+            "Full Centres": 0,
+            "Trainees Training": self.__trainees["Training"],
+            "Trainees Waiting": self.__trainees["Waiting"]
+        }
 
     @property
     def OpenCount(self):
@@ -44,17 +50,14 @@ class Simulation:
         return self.__training_centres
 
     def __open_new_centre(self):
-        self.__training_centres.append(TrainingCentre())
+        # self.__training_centres.append(TrainingCentre())
+        return TrainingCentre()
 
     def __recruit_trainees(self):
         new_trainees = random.randint(20, 30)
         # Append these trainees to waiting list
         self.__trainees["Waiting"] += new_trainees
         return new_trainees  # The number of trainees to generate (not needed but nice)
-
-    # TODO: Consider implementing a UI class
-
-
 
     def run_simulation(self):
         # MAIN LOOP - Go through the simulation month by month
@@ -64,7 +67,7 @@ class Simulation:
 
             # On an even month, a new centre opens
             if month % 2 == 0:
-                self.__open_new_centre()
+                self.__training_centres.append(self.__open_new_centre())
 
             # Debug (Remove)
             print(f"\nMonth {month}")
@@ -88,28 +91,31 @@ class Simulation:
             print(f"Trainees now in training: {self.__trainees['Training']}")
             print(f"Trainees now in waiting : {self.__trainees['Waiting']}")
 
-
         # End of simulation report
-        self.__full_count = sum([centre.IsFull for centre in self.__training_centres])
-        self.__open_count = len(self.__training_centres) - self.__full_count
+        self.__simulation_output["Full Centres"] = sum([centre.IsFull for centre in self.__training_centres])
+        self.__simulation_output["Open Centres"] = len(self.__training_centres) - self.__simulation_output["Full Centres"]
 
-        print(f"""\n\n{'-'*50}\nEnd of Simulation Report
-        Number of open centres: {self.__open_count}
-        Number of full centres: {self.__full_count}
-        Number of trainees in training: {self.__trainees['Training']}
-        Number of trainees in waiting : {self.__trainees['Waiting']}
-End of End of Simulation Report\n{'-'*50}""")
+        GUI.display_graph(None, None)
 
-        # Testing Getters:
-        def get_open_new_centres(self):
-            self.__open_new_centre()
+    @property
+    def SimulationResults(self):
+        return self.__simulation_output.copy()
 
-        def get_recruit_trainees(self):
-            return self.__recruit_trainees()
+    # TODO: Move this funciton to the GUI class
+    def print_simulation_results(self):
+        print(f"""\n\n{'-' * 50}\nEnd of Simulation Report
+                Number of open centres: {self.__simulation_output["Open Centres"]}
+                Number of full centres: {self.__simulation_output["Full Centres"]}
+                Number of trainees in training: {self.__trainees['Training']}
+                Number of trainees in waiting : {self.__trainees['Waiting']}
+        End of End of Simulation Report\n{'-' * 50}""")
 
-        def get_welcome_func(self):
-            return self.__welcome_func()
+    # Testing Getters:
+    def get_open_new_centres(self):
+        self.__open_new_centre()
 
+    def get_recruit_trainees(self):
+        return self.__recruit_trainees()
 
 
 # Test
