@@ -21,12 +21,16 @@ class Simulation:
         for i in range(centre_count):
             self.__training_centres.append(self.__open_new_centre())
 
-        self.__simulation_output = {
-            "Open Centres": 0,
-            "Full Centres": 0,
-            "Trainees Training": 0,
-            "Trainees Waiting": 0
-        }
+
+        self.__simulation_output = {0: {
+            "Training": 0,
+            "Waiting": 0,
+            "Full": 0,
+            "Open": centre_count
+        }}
+        self.__final_simulation_output = self.__simulation_output[0]
+
+
 
     @property
     def OpenCount(self):
@@ -46,11 +50,17 @@ class Simulation:
 
     @property
     def SimulationResults(self):
-        return self.__simulation_output.copy()
+
+        return self.__final_simulation_output.copy()
+
 
     @property
     def Training_Centres(self):
         return self.__training_centres
+
+    @property
+    def CompleteSimulationOutput(self):
+        return self.__simulation_output
 
     def __open_new_centre(self):
         # self.__training_centres.append(TrainingCentre())
@@ -62,7 +72,7 @@ class Simulation:
         self.__trainees["Waiting"] += new_trainees
         return new_trainees  # The number of trainees to generate (not needed but nice)
 
-    def run_simulation(self):
+    def run_simulation(self, gui_enabled=False):
         # MAIN LOOP - Go through the simulation month by month
         month_list = {}
         for month in range(1, self.__simulation_length + 1):
@@ -99,31 +109,36 @@ class Simulation:
             print(f"Trainees now in training: {self.__trainees['Training']}")
             print(f"Trainees now in waiting : {self.__trainees['Waiting']}")
 
-            month_list[month] = {
-                "TraineesTraining": self.__trainees['Training'],
-                "TraineesWaiting": self.__trainees['Waiting'],
-                "OpenCentres": 0,
-                "FullCentres": 0
+
+            # GUI needs to know status at the end of every month
+            full_centres = sum([centre.IsFull for centre in self.__training_centres])
+            open_centres = len(self.__training_centres) - full_centres
+
+            self.__simulation_output[month] = {
+                "Training": self.__trainees['Training'],
+                "Waiting": self.__trainees['Waiting'],
+                "Full": full_centres,
+                "Open": open_centres
             }
 
+            self.__final_simulation_output = self.__simulation_output[month]
+
         # End of simulation report
-        self.__simulation_output["Full Centres"] = sum([centre.IsFull for centre in self.__training_centres])
-        self.__simulation_output["Open Centres"] = len(self.__training_centres) - self.__simulation_output[
-            "Full Centres"]
-        self.__simulation_output["Trainees Training"] = self.__trainees['Training']
-        self.__simulation_output["Trainees Waiting"] = self.__trainees['Waiting']
-
-        full_centre_list = []
-        open_centre_list = []
-
-        for centre in self.__training_centres:
-            if centre.IsFull:
-                self.__simulation_output["Full Centres"].append(centre)
-            else:
-                self.__simulation_output["Open Centres"].append(centre)
-
         GUI.print_simulation_results(self.SimulationResults)
-        # GUI.display_graph(month_list, full_centre_list)
+        xaxis = []
+        yaxis = []
+        for key, value in self.__simulation_output.items():
+            print(f"Month = {key}")
+            print(f"Training = {value['Training']}")
+
+            xaxis.append(key)
+            yaxis.append(value['Training'])
+
+        print(xaxis)
+        print(yaxis)
+        GUI.display_graph(xaxis, yaxis)
+
+
 
     # Testing Getters:
     def get_open_new_centres(self):

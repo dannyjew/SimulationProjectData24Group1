@@ -1,14 +1,16 @@
+# To test (in terminal) pytest -sv
+
 import Simulation as S
 import Trainees as T
 import TrainingCentre as TC
 
+import GUI as G
+import unittest.mock as mock
 
 
 Testing_Tom = T.Trainees("Training Towers", name="Testing Tom")
 Testing_Towers = TC.TrainingCentre("Training Towers")
-Sim = S.Simulation()
-
-
+Sim = S.Simulation(False)
 
 def test_trainee_name_getter():
     assert Testing_Tom.Name == "Testing Tom"
@@ -29,10 +31,10 @@ def test_is_tc_full():
     Testing_Towers.add_trainees(101)
     assert Testing_Towers.IsFull
 
-def test_open_centre():
-    old_centre_count = len(Sim.Training_Centres)
-    Sim.get_open_new_centres()
-    assert old_centre_count + 1 == len(Sim.Training_Centres)
+# def test_open_centre():
+#     old_centre_count = len(Sim.Training_Centres)
+#     Sim.get_open_new_centres()
+#     assert old_centre_count + 1 == len(Sim.Training_Centres)
 
 
 def test_recruit_trainees():
@@ -42,13 +44,13 @@ def test_recruit_trainees():
 def test_welcome_func_def(monkeypatch):
     length = 3
     opening_centres = 1
-    monkeypatch.setattr('builtins.input', lambda _: "1")
-    assert Sim.get_welcome_func() == (length, opening_centres)
+    with mock.patch('builtins.input', side_effect=["1"]):
+        assert G.welcome_func() == (length, opening_centres)
 
 
 def test_welcome_func_nondef(mocker):
+
     length = 15
     opening_centres = 3
-    inputs = ["2", str(length), str(opening_centres)]
-    mocker.patch('builtins.input', map(str, inputs))
-    assert Sim.get_welcome_func() == (length, opening_centres)
+    with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
+        assert G.welcome_func(True) == (length, opening_centres)
