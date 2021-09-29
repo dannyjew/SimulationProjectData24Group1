@@ -21,6 +21,7 @@ class Simulation:
         for i in range(centre_count):
             self.__training_centres.append(self.__open_new_centre())
 
+
         self.__simulation_output = {0: {
             "Training": 0,
             "Waiting": 0,
@@ -28,6 +29,8 @@ class Simulation:
             "Open": centre_count
         }}
         self.__final_simulation_output = self.__simulation_output[0]
+
+
 
     @property
     def OpenCount(self):
@@ -47,7 +50,9 @@ class Simulation:
 
     @property
     def SimulationResults(self):
+
         return self.__final_simulation_output.copy()
+
 
     @property
     def Training_Centres(self):
@@ -69,9 +74,11 @@ class Simulation:
 
     def run_simulation(self, gui_enabled=False):
         # MAIN LOOP - Go through the simulation month by month
+        month_list = {}
         for month in range(1, self.__simulation_length + 1):
             # Every month, new trainees are recruited/generated
             self.__recruit_trainees()
+
 
             # On an even month, a new centre opens
             if month % 2 == 0:
@@ -102,6 +109,7 @@ class Simulation:
             print(f"Trainees now in training: {self.__trainees['Training']}")
             print(f"Trainees now in waiting : {self.__trainees['Waiting']}")
 
+
             # GUI needs to know status at the end of every month
             full_centres = sum([centre.IsFull for centre in self.__training_centres])
             open_centres = len(self.__training_centres) - full_centres
@@ -129,6 +137,7 @@ class Simulation:
         print(xaxis)
         print(yaxis)
         GUI.display_graph(xaxis, yaxis)
+
 
 
     # Testing Getters:

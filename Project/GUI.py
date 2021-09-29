@@ -41,15 +41,18 @@ def welcome_func(default_val=True):
 
 def print_simulation_results(simulation_result):
     print(f"""\n\n{'-' * 50}\nEnd of Simulation Report
+
             Number of open centres: {simulation_result["Open"]}
             Number of full centres: {simulation_result["Full"]}
             Number of trainees in training: {simulation_result['Training']}
             Number of trainees in waiting : {simulation_result['Waiting']}
+
     End of End of Simulation Report\n{'-' * 50}""")
 
 
 def display_graph(x_axis, y_axis):
     plt.plot(x_axis, y_axis)
+
     plt.xlabel('month')
     plt.ylabel('training')
     plt.title("Graph")
