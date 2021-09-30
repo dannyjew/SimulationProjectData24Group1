@@ -50,6 +50,7 @@ def print_simulation_results(simulation_result):
     End of End of Simulation Report\n{'-' * 50}""")
 
 
+
 def display_graph(xaxis, yaxis, y_label, graph_title):
     plt.xlabel('Month')
     plt.ylabel(y_label)
