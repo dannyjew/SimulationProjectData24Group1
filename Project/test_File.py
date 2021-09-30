@@ -5,7 +5,6 @@ import Trainees as T
 import TrainingCentre as TC
 import GUI as G
 import matplotlib.pyplot as plt
-
 import unittest.mock as mock
 
 # # # # # # # # # # # # # # # # # # # # # Instances for testing # # # # # # # # # # # # # # # # # # # # #
