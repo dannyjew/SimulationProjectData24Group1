@@ -48,6 +48,21 @@ def print_simulation_results(simulation_result):
     End of End of Simulation Report\n{'-' * 50}""")
 
 
+def user_input_graph():
+    graph_choice = 0
+    input_choice = input("\nEnter either 1, 2, 3, 4, 5 or 6 : ")
+    print("1. Number of full centres x time")
+    print("2. Number of trainees in waiting x time")
+    print("3. Number of trainees in training x time")
+    print("4. Number of open centres x time")
+    print("5. Number of total centres x time")
+    print("6. Do not want to show graph")
+    return input_choice
+print(user_input_graph())
+
+
+
+
 def display_graph(x_axis, y_axis):
     plt.plot(x_axis, y_axis)
     plt.xlabel('month')
