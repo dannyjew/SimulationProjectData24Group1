@@ -57,6 +57,10 @@ class Simulation:
     def CompleteSimulationOutput(self):
         return self.__simulation_output
 
+    @property
+    def FinalSimOutput(self):
+        return self.__final_simulation_output
+
     def __open_new_centre(self):
         # self.__training_centres.append(TrainingCentre())
         return TrainingCentre()
