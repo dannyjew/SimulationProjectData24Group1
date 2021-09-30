@@ -7,17 +7,15 @@ import GUI as G
 import matplotlib.pyplot as plt
 
 import unittest.mock as mock
-import sys
-import os
-from unittest.mock import patch
 
 # # # # # # # # # # # # # # # # # # # # # Instances for testing # # # # # # # # # # # # # # # # # # # # #
+
 Testing_Tom = T.Trainees("Training Towers", name="Testing Tom")
 Testing_Towers = TC.TrainingCentre("Training Towers")
 Sim = S.Simulation(False)
 
 
-# # # # # # # # # # # # # # # # # # # # # # Trainee Functions # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # Trainee Functions # # # # # # # # # # # # # # # # # # # # # # #
 
 def test_trainee_name_getter():
     assert Testing_Tom.Name == "Testing Tom"
@@ -66,17 +64,20 @@ def test_recruit_randomness():                                      # NB This wi
     val2 = Sim.get_recruit_trainees()                               # factor of 10 each time so running tests again
     assert not val1 == val2                                         # should lead to it passing
 
+
+required_outputs = {                                                # Known outputs for default initial conditions
+    "Max Training": 90,
+    "Min Training": 60,
+    "Waiting": 0,
+    "Full": 0,
+    "Open": 2
+}
+
+
 def test_training_simulation(mocker):
     Test_Sim = S.Simulation(False)
     with mock.patch('builtins.input', side_effect=["6"]):
         Test_Sim.run_simulation()
-        required_outputs = {
-            "Max Training": 90,
-            "Min Training": 60,
-            "Waiting": 0,
-            "Full": 0,
-            "Open": 2
-        }
     assert required_outputs["Min Training"] <= Test_Sim.SimulationResults["Training"] <= required_outputs["Max Training"]
 
 
@@ -84,13 +85,6 @@ def test_waiting_simulation(mocker):
     Test_Sim = S.Simulation(False)
     with mock.patch('builtins.input', side_effect=["6"]):
         Test_Sim.run_simulation()
-        required_outputs = {
-            "Max Training": 90,
-            "Min Training": 60,
-            "Waiting": 0,
-            "Full": 0,
-            "Open": 2
-        }
     assert required_outputs["Waiting"] == Test_Sim.SimulationResults["Waiting"]
 
 
@@ -98,32 +92,48 @@ def test_full_simulation(mocker):
     Test_Sim = S.Simulation(False)
     with mock.patch('builtins.input', side_effect=["6"]):
         Test_Sim.run_simulation()
-        required_outputs = {
-            "Max Training": 90,
-            "Min Training": 60,
-            "Waiting": 0,
-            "Full": 0,
-            "Open": 2
-        }
     assert required_outputs["Full"] == Test_Sim.SimulationResults["Full"]
 
 def test_open_simulation(mocker):
     Test_Sim = S.Simulation(False)
     with mock.patch('builtins.input', side_effect=["6"]):
         Test_Sim.run_simulation()
-        required_outputs = {
-            "Max Training": 90,
-            "Min Training": 60,
-            "Waiting": 0,
-            "Full": 0,
-            "Open": 2
-        }
     assert required_outputs["Open"] == Test_Sim.SimulationResults["Open"]
 
+# Testing the default simulation parameters (as these are known, and the process is the same for non-default parameters
+# meaning that if it works for one, it will work for all
+
 # # # # # # # # # # # # # # # # # # # # # # # GUI Test Functions # # # # # # # # # # # # # # # # # # # # # # #
+
 
 def test_welcome_func_def(mocker):
     length = 3
     opening_centres = 1
     with mock.patch('builtins.input', side_effect=["1"]):           # Mocker passes inputs to function to automate
         assert G.welcome_func() == (length, opening_centres)        # testing
+
+
+def test_welcome_func_non_default_values(mocker):                       # This is where things could go wrong with
+    length = 15                                                         # inputs hence several different inputs to be
+    opening_centres = 3                                                 # testes
+    with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
+        assert G.welcome_func(True) == (length, opening_centres)
+
+
+def test_welcome_func_non_default_formats(mocker):
+    length = "15"
+    opening_centres = "3"
+    with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
+        assert G.welcome_func(False) != (length, opening_centres)
+
+
+def test_welcome_func_non_default_fail(mocker):
+    length = 25
+    opening_centres = 17
+    with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
+        assert G.welcome_func(False) != (length, opening_centres)
+
+
+def test_display_graph(monkeypatch):
+    monkeypatch.setattr(plt, 'show', lambda: None)
+    G.display_graph([1, 2, 3], [1, 2, 3], "Label", "Title")

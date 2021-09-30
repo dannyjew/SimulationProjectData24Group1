@@ -88,66 +88,55 @@ def graph_choice(simulation_result, input_choice):
 
     if input_choice == 1:
         for key, value in simulation_result.items():
-            # print(f"Month = {key}")
-            # print(f"Training = {value['Training']}")
             xaxis.append(key)
-            yaxis.append(value['Full Centres'])
+            yaxis.append(value['Full'])
             y_label = 'Number of Full Centres'
             graph_title = 'Graph showing number of full centres against time!'
-            display_graph(xaxis, yaxis, y_label, graph_title)
+        display_graph(xaxis, yaxis, y_label, graph_title)
 
 
     # Graph choice for the number of trainees in waiting against time.
 
     elif input_choice == 2:
         for key, value in simulation_result.items():
-            # print(f"Month = {key}")
-            # print(f"Training = {value['Training']}")
             xaxis.append(key)
             yaxis.append(value['Waiting'])
             y_label = 'Number of Trainees in the waiting list'
             graph_title = 'Graph showing number of trainees in waiting against time!'
-            display_graph(xaxis, yaxis, y_label, graph_title)
+        display_graph(xaxis, yaxis, y_label, graph_title)
 
 
     # Graph choice for the number of trainees in training against time.
 
     elif input_choice == 3:
         for key, value in simulation_result.items():
-            # print(f"Month = {key}")
-            # print(f"Training = {value['Training']}")
             xaxis.append(key)
             yaxis.append(value['Training'])
             y_label = 'Number of Trainees in training'
             graph_title = 'Graph showing the number of trainees in training against time!'
-            display_graph(xaxis, yaxis, y_label, graph_title)
+        display_graph(xaxis, yaxis, y_label, graph_title)
 
 
     # Graph choice for the number of open centres against time.
 
     elif input_choice == 4:
         for key, value in simulation_result.items():
-            # print(f"Month = {key}")
-            # print(f"Training = {value['Training']}")
             xaxis.append(key)
             yaxis.append(value['Open'])
             y_label = 'Number of Open centres'
             graph_title = 'Graph showing the number of open centres against time!'
-            display_graph(xaxis, yaxis, y_label, graph_title)
+        display_graph(xaxis, yaxis, y_label, graph_title)
 
     # Graph choice for the number of total centres against time.
 
     elif input_choice == 5:
         for key, value in simulation_result.items():
             total_centres = value['Full'] + value['Open']
-            # print(f"Month = {key}")
-            # print(total_centres)
-            # Need to create a list for total centres
             xaxis.append(key)
             yaxis.append(total_centres)
             y_label = 'Total number of Centres'
             graph_title = 'Graph showing the number of total centres against time!'
-            display_graph(xaxis, yaxis, y_label, graph_title)
+        display_graph(xaxis, yaxis, y_label, graph_title)
 
     # Graph choice for not showing a graph.
 
