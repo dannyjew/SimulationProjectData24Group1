@@ -9,12 +9,13 @@ import matplotlib.pyplot as plt
 import unittest.mock as mock
 
 # # # # # # # # # # # # # # # # # # # # # Instances for testing # # # # # # # # # # # # # # # # # # # # #
+
 Testing_Tom = T.Trainees("Training Towers", name="Testing Tom")
 Testing_Towers = TC.TrainingCentre("Training Towers")
 Sim = S.Simulation(False)
 
 
-# # # # # # # # # # # # # # # # # # # # # # Trainee Functions # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # Trainee Functions # # # # # # # # # # # # # # # # # # # # # # #
 
 def test_trainee_name_getter():
     assert Testing_Tom.Name == "Testing Tom"
@@ -77,7 +78,6 @@ def test_training_simulation(mocker):
     Test_Sim = S.Simulation(False)
     with mock.patch('builtins.input', side_effect=["6"]):
         Test_Sim.run_simulation()
-
     assert required_outputs["Min Training"] <= Test_Sim.SimulationResults["Training"] <= required_outputs["Max Training"]
 
 
