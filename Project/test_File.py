@@ -7,6 +7,8 @@ import GUI as G
 import matplotlib.pyplot as plt
 
 import unittest.mock as mock
+import sys
+import os
 from unittest.mock import patch
 
 # # # # # # # # # # # # # # # # # # # # # Instances for testing # # # # # # # # # # # # # # # # # # # # #
@@ -63,6 +65,21 @@ def test_recruit_randomness():                                      # NB This wi
     val1 = Sim.get_recruit_trainees()                               # chances of it failing back to back decrease by a
     val2 = Sim.get_recruit_trainees()                               # factor of 10 each time so running tests again
     assert not val1 == val2                                         # should lead to it passing
+
+def test_simulation(mocker):
+    old_stdout = sys.stdout  # backup current stdout
+    sys.stdout = open(os.devnull, "w")
+    Test_Sim = S.Simulation(False)
+    required_outputs = {
+        "Max Training": 90,
+        "Min Training": 60,
+        "Waiting": 0,
+        "Full": 0,
+        "Open": 2
+    }
+    assert required_outputs["Min Training"] <= Test_Sim.FinalSimOutput["Training"] <= required_outputs["Max Training"]
+    assert required_outputs["Open"] == Test_Sim.SimulationResults["Open"]
+    sys.stdout = old_stdout  # reset old stdout
 
 
 # # # # # # # # # # # # # # # # # # # # # # # GUI Test Functions # # # # # # # # # # # # # # # # # # # # # # #
