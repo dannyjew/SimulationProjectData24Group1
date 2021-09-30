@@ -9,12 +9,13 @@ import matplotlib.pyplot as plt
 import unittest.mock as mock
 
 # # # # # # # # # # # # # # # # # # # # # Instances for testing # # # # # # # # # # # # # # # # # # # # #
+
 Testing_Tom = T.Trainees("Training Towers", name="Testing Tom")
 Testing_Towers = TC.TrainingCentre("Training Towers")
 Sim = S.Simulation(False)
 
 
-# # # # # # # # # # # # # # # # # # # # # # Trainee Functions # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # Trainee Functions # # # # # # # # # # # # # # # # # # # # # # #
 
 def test_trainee_name_getter():
     assert Testing_Tom.Name == "Testing Tom"
@@ -77,7 +78,6 @@ def test_training_simulation(mocker):
     Test_Sim = S.Simulation(False)
     with mock.patch('builtins.input', side_effect=["6"]):
         Test_Sim.run_simulation()
-
     assert required_outputs["Min Training"] <= Test_Sim.SimulationResults["Training"] <= required_outputs["Max Training"]
 
 
@@ -111,3 +111,29 @@ def test_welcome_func_def(mocker):
     opening_centres = 1
     with mock.patch('builtins.input', side_effect=["1"]):           # Mocker passes inputs to function to automate
         assert G.welcome_func() == (length, opening_centres)        # testing
+
+
+def test_welcome_func_non_default_values(mocker):                       # This is where things could go wrong with
+    length = 15                                                         # inputs hence several different inputs to be
+    opening_centres = 3                                                 # testes
+    with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
+        assert G.welcome_func(True) == (length, opening_centres)
+
+
+def test_welcome_func_non_default_formats(mocker):
+    length = "15"
+    opening_centres = "3"
+    with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
+        assert G.welcome_func(False) != (length, opening_centres)
+
+
+def test_welcome_func_non_default_fail(mocker):
+    length = 25
+    opening_centres = 17
+    with mock.patch('builtins.input', side_effect=["2", "15", "3"]):
+        assert G.welcome_func(False) != (length, opening_centres)
+
+
+def test_display_graph(monkeypatch):
+    monkeypatch.setattr(plt, 'show', lambda: None)
+    G.display_graph([1, 2, 3], [1, 2, 3], "Label", "Title")
