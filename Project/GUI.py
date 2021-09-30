@@ -88,8 +88,6 @@ def graph_choice(simulation_result, input_choice):
 
     if input_choice == 1:
         for key, value in simulation_result.items():
-            # print(f"Month = {key}")
-            # print(f"Training = {value['Training']}")
             xaxis.append(key)
             yaxis.append(value['Full'])
             y_label = 'Number of Full Centres'
@@ -101,8 +99,6 @@ def graph_choice(simulation_result, input_choice):
 
     elif input_choice == 2:
         for key, value in simulation_result.items():
-            # print(f"Month = {key}")
-            # print(f"Training = {value['Training']}")
             xaxis.append(key)
             yaxis.append(value['Waiting'])
             y_label = 'Number of Trainees in the waiting list'
@@ -114,8 +110,6 @@ def graph_choice(simulation_result, input_choice):
 
     elif input_choice == 3:
         for key, value in simulation_result.items():
-            # print(f"Month = {key}")
-            # print(f"Training = {value['Training']}")
             xaxis.append(key)
             yaxis.append(value['Training'])
             y_label = 'Number of Trainees in training'
@@ -127,8 +121,6 @@ def graph_choice(simulation_result, input_choice):
 
     elif input_choice == 4:
         for key, value in simulation_result.items():
-            # print(f"Month = {key}")
-            # print(f"Training = {value['Training']}")
             xaxis.append(key)
             yaxis.append(value['Open'])
             y_label = 'Number of Open centres'
@@ -140,9 +132,6 @@ def graph_choice(simulation_result, input_choice):
     elif input_choice == 5:
         for key, value in simulation_result.items():
             total_centres = value['Full'] + value['Open']
-            # print(f"Month = {key}")
-            # print(total_centres)
-            # Need to create a list for total centres
             xaxis.append(key)
             yaxis.append(total_centres)
             y_label = 'Total number of Centres'
