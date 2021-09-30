@@ -50,7 +50,6 @@ def print_simulation_results(simulation_result):
 
 # Choice for users to input a graph
 def user_input_graph():
-    graph_choice = 0
     input_choice = input("\nEnter either 1, 2, 3, 4, 5 or 6 : ")
     print("1. Number of full centres x time")
     print("2. Number of trainees in waiting x time")
