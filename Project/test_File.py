@@ -66,21 +66,59 @@ def test_recruit_randomness():                                      # NB This wi
     val2 = Sim.get_recruit_trainees()                               # factor of 10 each time so running tests again
     assert not val1 == val2                                         # should lead to it passing
 
-def test_simulation(mocker):
-    old_stdout = sys.stdout  # backup current stdout
-    sys.stdout = open(os.devnull, "w")
+def test_training_simulation(mocker):
     Test_Sim = S.Simulation(False)
-    required_outputs = {
-        "Max Training": 90,
-        "Min Training": 60,
-        "Waiting": 0,
-        "Full": 0,
-        "Open": 2
-    }
-    assert required_outputs["Min Training"] <= Test_Sim.FinalSimOutput["Training"] <= required_outputs["Max Training"]
-    assert required_outputs["Open"] == Test_Sim.SimulationResults["Open"]
-    sys.stdout = old_stdout  # reset old stdout
+    with mock.patch('builtins.input', side_effect=["6"]):
+        Test_Sim.run_simulation()
+        required_outputs = {
+            "Max Training": 90,
+            "Min Training": 60,
+            "Waiting": 0,
+            "Full": 0,
+            "Open": 2
+        }
+    assert required_outputs["Min Training"] <= Test_Sim.SimulationResults["Training"] <= required_outputs["Max Training"]
 
+
+def test_waiting_simulation(mocker):
+    Test_Sim = S.Simulation(False)
+    with mock.patch('builtins.input', side_effect=["6"]):
+        Test_Sim.run_simulation()
+        required_outputs = {
+            "Max Training": 90,
+            "Min Training": 60,
+            "Waiting": 0,
+            "Full": 0,
+            "Open": 2
+        }
+    assert required_outputs["Waiting"] == Test_Sim.SimulationResults["Waiting"]
+
+
+def test_full_simulation(mocker):
+    Test_Sim = S.Simulation(False)
+    with mock.patch('builtins.input', side_effect=["6"]):
+        Test_Sim.run_simulation()
+        required_outputs = {
+            "Max Training": 90,
+            "Min Training": 60,
+            "Waiting": 0,
+            "Full": 0,
+            "Open": 2
+        }
+    assert required_outputs["Full"] == Test_Sim.SimulationResults["Full"]
+
+def test_open_simulation(mocker):
+    Test_Sim = S.Simulation(False)
+    with mock.patch('builtins.input', side_effect=["6"]):
+        Test_Sim.run_simulation()
+        required_outputs = {
+            "Max Training": 90,
+            "Min Training": 60,
+            "Waiting": 0,
+            "Full": 0,
+            "Open": 2
+        }
+    assert required_outputs["Open"] == Test_Sim.SimulationResults["Open"]
 
 # # # # # # # # # # # # # # # # # # # # # # # GUI Test Functions # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -114,4 +152,4 @@ def test_welcome_func_non_default_fail(mocker):
 
 def test_display_graph(monkeypatch):
     monkeypatch.setattr(plt, 'show', lambda: None)
-    G.display_graph([1, 2, 3], [1, 2, 3])
+    G.display_graph([1, 2, 3], [1, 2, 3], "Label", "Title")
