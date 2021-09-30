@@ -62,6 +62,10 @@ class Simulation:
     def CompleteSimulationOutput(self):
         return self.__simulation_output
 
+    @property
+    def FinalSimOutput(self):
+        return self.__final_simulation_output
+
     def __open_new_centre(self):
         # self.__training_centres.append(TrainingCentre())
         return TrainingCentre()
@@ -125,18 +129,13 @@ class Simulation:
 
         # End of simulation report
         GUI.print_simulation_results(self.SimulationResults)
-        xaxis = []
-        yaxis = []
-        for key, value in self.__simulation_output.items():
-            print(f"Month = {key}")
-            print(f"Training = {value['Training']}")
 
-            xaxis.append(key)
-            yaxis.append(value['Training'])
+        # Remove these axis prints.
 
-        print(xaxis)
-        print(yaxis)
-        GUI.display_graph(xaxis, yaxis)
+        # print(xaxis)
+        # print(yaxis)
+        GUI.graph_choice(self.__simulation_output, GUI.user_input_graph())
+
 
 
 
