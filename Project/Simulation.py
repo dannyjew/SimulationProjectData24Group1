@@ -145,8 +145,3 @@ class Simulation:
 
     def get_recruit_trainees(self):
         return self.__recruit_trainees()
-
-
-# Test
-# sim = Simulation()
-# sim.run_simulation()
