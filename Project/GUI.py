@@ -47,7 +47,7 @@ def print_simulation_results(simulation_result):
             Number of trainees in waiting : {simulation_result['Waiting']}
     End of End of Simulation Report\n{'-' * 50}""")
 
-
+# Choice for users to input a graph
 def user_input_graph():
     graph_choice = 0
     input_choice = input("\nEnter either 1, 2, 3, 4, 5 or 6 : ")
