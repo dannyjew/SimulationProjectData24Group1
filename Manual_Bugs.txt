@@ -1,0 +1,3 @@
+- Centre counter not working with non-default values
+- Graph selection not limited (number 1-6 required)
+- Naming conventions ("Full Centre"->"Full")
